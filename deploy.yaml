@@ -27,7 +27,7 @@ spec:
       - command:
           - /bin/sh
           - '-c'
-          - '[[ -e "database.db" ]] && echo "database.db already exists." || (echo "Creating database.db..."; touch "database.db"; echo "database.db created.")'
+          - 'echo "Hello World"'
         image: centos
         imagePullPolicy: Always
         name: init-container
