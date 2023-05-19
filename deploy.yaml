@@ -28,8 +28,7 @@ spec:
           - /bin/sh
           - '-c'
           - '[[ -e "database.db" ]] && echo "database.db already exists." || (echo "Creating database.db..."; touch "database.db"; echo "database.db created.")'
-        image: >-
-          docker-registry.default.svc:5000/my-app-dev/pdf-maker@sha256:ffff9c5923139ad0c43df81ccaa9db1ae7eab70795d7e776f40002bd43c04b2b
+        image: centos
         imagePullPolicy: Always
         name: init-container
         resources: {}
