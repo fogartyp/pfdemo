@@ -18,26 +18,27 @@ spec:
      containers:
      - name: pfdemo-app
        image: docker.io/fogartyp/pfdemo:latest
+       imagePullPolicy: Always
        ports:
-       - containerPort: 8080
-       volumeMounts:
-          - name: pfdemo-pvc
-            mountPath: /db/database.db
-            subPath: database.db
-     initContainers:
-      - command:
-          - /bin/sh
-          - '-c'
-          - '[[ -e "database.db" ]] && echo "database.db already exists." || (echo "Creating database.db..."; touch "database.db"; echo "database.db created.")'
-        image: centos
-        imagePullPolicy: Always
-        name: init-container
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-          - mountPath: /db
-            name: pfdemo-pvc
+       - containerPort: 80
+      #  volumeMounts:
+      #     - name: pfdemo-pvc
+      #       mountPath: /db #/database.db
+            # subPath: database.db
+    #  initContainers:
+    #   - command:
+    #       - /bin/sh
+    #       - '-c'
+    #       - '[[ -e "database.db" ]] && echo "database.db already exists." || (echo "Creating database.db..."; touch "database.db"; echo "database.db created.")'
+    #     image: centos
+    #     imagePullPolicy: Always
+    #     name: init-container
+    #     resources: {}
+    #     terminationMessagePath: /dev/termination-log
+    #     terminationMessagePolicy: File
+    #     volumeMounts:
+    #       - mountPath: /db
+    #         name: pfdemo-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -49,5 +50,5 @@ spec:
     app: pfdemo-app
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: 80
       nodePort: 30001
