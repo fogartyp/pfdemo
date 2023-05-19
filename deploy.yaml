@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pfdemo-deployment
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: pfdemo-app
+ template:
+   metadata:
+     labels:
+       app: pfdemo-app
+   spec:                  
+     containers:
+     - name: pfdemo-app
+       image: docker.io/fogartyp/pfdemo:latest
+       ports:
+       - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pfdemo-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: pfdemo-app
+  ports:
+    - port: 80
+      targetPort: 8080
+      nodePort: 30001
